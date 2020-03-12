@@ -99,10 +99,11 @@
                     console.log(arr.lenght)
 
                     for(let i = 0; i < arr.length; i++){
-                        //LOOKING FOR VARIABLES ON THE CODE
+                        arr[i] = $.trim(arr[i])
+
 
                          //LOOKING FOR ENDINGS
-                         if(arr[i].includes("}")){
+                        if(arr[i].includes("}")){
                             
                             tabs--
 
@@ -110,7 +111,7 @@
                             
                         }
 
-                        arr[i] = $.trim(arr[i])
+                        //LOOKING FOR VARIABLES ON THE CODE
 
                         console.log("Reading line",i)
 
@@ -181,15 +182,43 @@
                             res += arrow+"\n"
                         }
 
+                        //LOOKING FOR \n
+                        if(arr[i] == "\n"){
+                
+                            
+                            res += "\n"
+                        }
+
                         
 
                         //LOOKING FOR CONDITIONALS ON THE CODE
+
+                        if(arr[i].includes("else")){
+                            res += "\n"
+
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "SE NAO "
+
+
+                            tabs++
+                            
+
+                            
+                            
+
+                        }
 
                         if(arr[i].includes("if")){
                             let condition  = arr[i].replace(/ /g,"")
                             condition  = condition.replace("){","")
                             condition  = condition.replace("if(","")
                             condition  = condition.replace("=="," = ")
+                            condition  = condition.replace("else","")
+                            condition  = condition.replace("}","")
+
+
 
 
                             res += "\n"
@@ -210,22 +239,7 @@
 
                         }
 
-                        if(arr[i].includes("else")){
-                            res += "\n"
-
-                            for(let j = 0; j < tabs; j++){
-                                res += "\t"
-                            }
-                            res += "SE NAO\n"
-
-
-                            tabs++
-                            
-
-                            
-                            
-
-                        }
+                        
 
                         
                         
