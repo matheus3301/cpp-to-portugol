@@ -39,7 +39,7 @@
                   <label for="language">Language:</label>
                   <select  class="form-control" name="language" id="language">
                     <option value="null">select...</option>
-                    <option value="cpp">C++</option>
+                    <option value="cpp" disabled>C++(comming soon...)</option>
                     <option value="c">C</option>
                   </select>
                 </div>
@@ -150,17 +150,33 @@
                             res += "\n\t"+arrow+"\n"
                         }
 
+                        //LOOKING FOR ATRIBUITIONS
+                        if(arr[i].includes("}")){
+                
+                            let arrow = arr[i].replace("=","<-")
+
+                            res += "\n\t"+arrow+"\n"
+                        }
+
                         //LOOKING FOR CONDITIONALS ON THE CODE
 
-                        if(arr[i].startsWith("if(")){
-                            let condition = "SE"
+                        if(arr[i].startsWith("if")){
+                            let condition  = arr[i].replace(/ /g,"")
+                            condition  = condition.replace("){","")
+                            condition  = condition.replace("if(","")
+
+                            res += "\n\tSE "+condition+" ENTAO\n"
+                            console.log(condition)
+
+
+                            
                             
 
                         }
                         //LOOKING FOR FORS, WHILES AND DO WHILES ON THE CODE
                     }
 
-                    res += "\n\nFIM_ALGORITMO."
+                    res += "\nFIM_ALGORITMO."
                     
 
 
