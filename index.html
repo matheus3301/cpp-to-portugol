@@ -37,10 +37,10 @@
                 
                 <div class="form-group">
                   <label for="language">Language:</label>
-                  <select class="form-control" name="language" id="language">
-                    <option>select...</option>
-                    <option>C</option>
-                    <option>C++</option>
+                  <select  class="form-control" name="language" id="language">
+                    <option value="null">select...</option>
+                    <option value="cpp">C++</option>
+                    <option value="c">C</option>
                   </select>
                 </div>
 
@@ -62,14 +62,102 @@
 
         </div>
     </div>
-    <script>
-        
-        
-    </script>
+    
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     
+    <script>
+        function convert(){
+            console.log("Starting...")
+
+            let lang = $("#language").val()
+
+            if(lang != "null"){
+                let code = $("#input").val()
+
+                //REMOVING ALL SEMICOLONS OF THE ORIGINAL CODE
+                code = code.replace(/;/g,"")
+
+                console.log(code)
+
+
+                let res = "ALGORITMO\n\n"
+
+                if(lang == "c"){
+                    console.log("Converting C to Portugol")
+
+                    let arr = code.split("\n")
+
+
+                    for(let i = 0; i < arr.lenght; i++){
+                        //LOOKING FOR VARIABLES ON THE CODE
+                        
+                        if($.trim(arr[i]).startsWith("int") 
+                        && !$.trim(arr[i]).endsWith("){") 
+                        && !$.trim(arr[i]).endsWith(")")                        
+                       
+                        ){
+                            
+                            
+
+                        }
+
+                        if($.trim(arr[i]).startsWith("float")
+                        && !$.trim(arr[i]).endsWith("){") 
+                        && !$.trim(arr[i]).endsWith(")")                        
+                       
+                        ){
+                            
+
+                        }
+
+                        if($.trim(arr[i]).startsWith("double")
+                        && !$.trim(arr[i]).endsWith("){") 
+                        && !$.trim(arr[i]).endsWith(")")                        
+                       
+                        ){
+                            
+
+                        }
+
+                        if($.trim(arr[i]).startsWith("char")
+                        && !$.trim(arr[i]).endsWith("){") 
+                        && !$.trim(arr[i]).endsWith(")")                        
+                       
+                        ){
+                            
+
+                        }
+
+                        
+
+                        //LOOKING FOR CONDITIONALS ON THE CODE
+
+                        //LOOKING FOR FORS, WHILES AND DO WHILES ON THE CODE
+                    }
+
+                    res += "\n\nFIM_ALGORITMO."
+                    
+
+
+                    
+                }else if(lang == "cpp"){
+                    console.log("Converting CPP to Portugol")
+
+                }
+
+                $("#output").val(res)
+
+                console.log("Done!")
+            }else{
+                alert("Select a language")
+            }
+
+        }
+        
+        
+    </script>
   </body>
 </html>
