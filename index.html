@@ -171,6 +171,57 @@
 
                         }
 
+                        //LOOKING FOR INPUTS AND OUTPUTS COMMANDS
+                        if(arr[i].includes("printf(")){
+
+                            let str = arr[i]+";"
+                            str = str.replace("printf(","")
+                            str = str.replace(");","")
+                            str = str.replace("%d","")
+                            str = str.replace("%f","")
+                            str = str.replace("%s","")
+                            str = str.replace("%c","")
+
+
+
+
+
+
+                            
+                            
+                            res += "\n"
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "ESCREVA "+str;
+                            
+                        }
+
+                        if(arr[i].includes("scanf(")){
+
+                            let str = arr[i]+";"
+                            str = str.replace("printf(","")
+                            str = str.replace(");","")
+                            str = str.replace("%d","")
+                            str = str.replace("%f","")
+                            str = str.replace("%s","")
+                            str = str.replace("%c","")
+
+
+
+
+
+
+
+
+                            res += "\n"
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "ESCREVA "+str;
+
+                        }
+
                         //LOOKING FOR ATRIBUITIONS
                         if(arr[i].includes(" = ")){
                 
@@ -237,16 +288,18 @@
                             
                             
 
-                        }
-
+                        }            
                         
-
-                        
-                        
-
-                       
-
                         //LOOKING FOR FORS, WHILES AND DO WHILES ON THE CODE
+                        if(arr[i].includes("for(")){
+                            
+
+                            tabs++
+
+
+                        }            
+
+
                     }
 
                     res += "\nFIM_ALGORITMO."
