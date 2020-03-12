@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                   <label for="input">Code:</label>
-                  <textarea class="form-control" name="input" id="input" rows="3"></textarea>
+                  <textarea class="form-control" name="input" id="input" rows="14"></textarea>
                 </div>
                 <button style="float:right" class="btn btn-primary" onClick="convert()">
                     Convert
@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                   <label for="output">Result:</label>
-                  <textarea readonly class="form-control" name="output" id="output" rows="7"></textarea>
+                  <textarea readonly class="form-control" name="output" id="output" rows="18"></textarea>
                 </div>
             </div>
 
@@ -90,48 +90,65 @@
 
                     let arr = code.split("\n")
 
+                    console.log(arr.lenght)
 
-                    for(let i = 0; i < arr.lenght; i++){
+                    for(let i = 0; i < arr.length; i++){
                         //LOOKING FOR VARIABLES ON THE CODE
-                        
-                        if($.trim(arr[i]).startsWith("int") 
-                        && !$.trim(arr[i]).endsWith("){") 
-                        && !$.trim(arr[i]).endsWith(")")                        
-                       
+                        arr[i] = $.trim(arr[i])
+
+                        console.log("Reading line",i)
+
+                        if(arr[i].startsWith("int") 
+                        && !arr[i].endsWith("){") 
+                        && !arr[i].endsWith(")")                       
                         ){
-                            
+                            res += "\tDECLARE "+arr[i].substr(4)+" NUMERICO\n";
+                                               
+
                             
 
                         }
 
-                        if($.trim(arr[i]).startsWith("float")
-                        && !$.trim(arr[i]).endsWith("){") 
-                        && !$.trim(arr[i]).endsWith(")")                        
-                       
+                        if(arr[i].startsWith("float")
+                        && !arr[i].endsWith("){") 
+                        && !arr[i].endsWith(")")
+                                                  
                         ){
+                            res += "\tDECLARE "+arr[i].substr(6)+" NUMERICO\n";
+
                             
 
                         }
 
-                        if($.trim(arr[i]).startsWith("double")
-                        && !$.trim(arr[i]).endsWith("){") 
-                        && !$.trim(arr[i]).endsWith(")")                        
+                        if(arr[i].startsWith("double")
+                        && !arr[i].endsWith("){") 
+                        && !arr[i].endsWith(")")                        
                        
                         ){
+                            res += "\tDECLARE "+arr[i].substr(7)+" NUMERICO\n";
+
                             
 
                         }
 
-                        if($.trim(arr[i]).startsWith("char")
-                        && !$.trim(arr[i]).endsWith("){") 
-                        && !$.trim(arr[i]).endsWith(")")                        
+                        if(arr[i].startsWith("char")
+                        && !arr[i].endsWith("){") 
+                        && !arr[i].endsWith(")")                        
                        
                         ){
+                            res += "\tDECLARE "+arr[i].substr(4)+" LITERAL\n";
+
                             
 
                         }
 
-                        
+                        //LOOKING FOR ATRIBUITIONS
+                        if(arr[i].includes(" = ")){
+                
+                            let arrow = arr[i].replace("=","<-")
+
+                            res += "\n\t"+arrow+"\n"
+                        }
 
                         //LOOKING FOR CONDITIONALS ON THE CODE
 
