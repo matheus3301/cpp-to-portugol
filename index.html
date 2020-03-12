@@ -70,9 +70,14 @@
     
     <script>
         function convert(){
+
+
+
             console.log("Starting...")
 
             let lang = $("#language").val()
+
+            let tabs = 1;
 
             if(lang != "null"){
                 let code = $("#input").val()
@@ -85,7 +90,6 @@
 
                 let res = "ALGORITMO\n\n"
 
-                let ends = {}
 
                 if(lang == "c"){
                     console.log("Converting C to Portugol")
@@ -96,6 +100,16 @@
 
                     for(let i = 0; i < arr.length; i++){
                         //LOOKING FOR VARIABLES ON THE CODE
+
+                         //LOOKING FOR ENDINGS
+                         if(arr[i].includes("}")){
+                            
+                            tabs--
+
+                            console.log("Less one Tab")             
+                            
+                        }
+
                         arr[i] = $.trim(arr[i])
 
                         console.log("Reading line",i)
@@ -104,10 +118,12 @@
                         && !arr[i].endsWith("){") 
                         && !arr[i].endsWith(")")                       
                         ){
-                            res += "\tDECLARE "+arr[i].substr(4)+" NUMERICO\n";
-                                               
 
-                            
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "DECLARE "+arr[i].substr(4)+" NUMERICO\n";
+                                               
 
                         }
 
@@ -116,7 +132,10 @@
                         && !arr[i].endsWith(")")
                                                   
                         ){
-                            res += "\tDECLARE "+arr[i].substr(6)+" NUMERICO\n";
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "DECLARE "+arr[i].substr(6)+" NUMERICO\n";
 
                             
 
@@ -127,7 +146,11 @@
                         && !arr[i].endsWith(")")                        
                        
                         ){
-                            res += "\tDECLARE "+arr[i].substr(7)+" NUMERICO\n";
+
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "DECLARE "+arr[i].substr(7)+" NUMERICO\n";
 
                             
 
@@ -138,7 +161,10 @@
                         && !arr[i].endsWith(")")                        
                        
                         ){
-                            res += "\tDECLARE "+arr[i].substr(4)+" LITERAL\n";
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "DECLARE "+arr[i].substr(4)+" LITERAL\n";
 
                             
 
@@ -148,33 +174,64 @@
                         if(arr[i].includes(" = ")){
                 
                             let arrow = arr[i].replace("=","<-")
-
-                            res += "\n\t"+arrow+"\n"
-                        }
-
-                        //LOOKING FOR ATRIBUITIONS
-                        if(arr[i].includes("}")){
-                
                             
-
-                            res += "\n\t"+arrow+"\n"
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += arrow+"\n"
                         }
+
+                        
 
                         //LOOKING FOR CONDITIONALS ON THE CODE
 
-                        if(arr[i].startsWith("if")){
+                        if(arr[i].includes("if")){
                             let condition  = arr[i].replace(/ /g,"")
                             condition  = condition.replace("){","")
                             condition  = condition.replace("if(","")
+                            condition  = condition.replace("=="," = ")
 
-                            res += "\n\tSE "+condition+" ENTAO\n"
+
+                            res += "\n"
+
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "SE "+condition+" ENTAO\n"
+                            
+
                             console.log(condition)
 
+                            tabs++
+                            
 
                             
                             
 
                         }
+
+                        if(arr[i].includes("else")){
+                            res += "\n"
+
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "SE NAO\n"
+
+
+                            tabs++
+                            
+
+                            
+                            
+
+                        }
+
+                        
+                        
+
+                       
+
                         //LOOKING FOR FORS, WHILES AND DO WHILES ON THE CODE
                     }
 
