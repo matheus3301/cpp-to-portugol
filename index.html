@@ -85,6 +85,8 @@
 
                 let res = "ALGORITMO\n\n"
 
+                let ends = {}
+
                 if(lang == "c"){
                     console.log("Converting C to Portugol")
 
@@ -153,7 +155,7 @@
                         //LOOKING FOR ATRIBUITIONS
                         if(arr[i].includes("}")){
                 
-                            let arrow = arr[i].replace("=","<-")
+                            
 
                             res += "\n\t"+arrow+"\n"
                         }
