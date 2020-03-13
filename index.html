@@ -77,7 +77,7 @@
 
             let lang = $("#language").val()
 
-            let tabs = 1;
+            let tabs = 0;
 
             if(lang != "null"){
                 let code = $("#input").val()
@@ -104,8 +104,18 @@
 
                          //LOOKING FOR ENDINGS
                         if(arr[i].includes("}")){
-                            
                             tabs--
+
+
+                            if(tabs != 0 ){
+                                res += "\n"
+                                for(let j = 0; j < tabs; j++){
+                                    res += "\t"
+                                }
+
+                                res += "FIM"
+                            }
+                            
 
                             console.log("Less one Tab")             
                             
@@ -250,10 +260,9 @@
                             for(let j = 0; j < tabs; j++){
                                 res += "\t"
                             }
-                            res += "SE NAO "
+                            res += "SE NAO\n "
 
 
-                            tabs++
                             
 
                             
@@ -282,16 +291,49 @@
 
                             console.log(condition)
 
-                            tabs++
                             
 
                             
                             
 
-                        }            
+                        }           
+
+                        if(arr[i].includes("while")){
+                            let condition  = arr[i].replace(/ /g,"")
+                            condition  = condition.replace("){","")
+                            condition  = condition.replace("while(","")
+                            condition  = condition.replace("=="," = ")
+                            condition  = condition.replace("}","")
+
+
+
+
+                            res += "\n"
+
+                            for(let j = 0; j < tabs; j++){
+                                res += "\t"
+                            }
+                            res += "ENQUANTO "+condition+" FAÇA\n"
+                            
+
+                            console.log(condition)
+
+                            
+
+                            
+                            
+
+                        }         
                         
-                        //LOOKING FOR FORS, WHILES AND DO WHILES ON THE CODE
-                        if(arr[i].includes("for(")){
+                        //LOOKING FOR FOR {
+                        if(arr[i].includes("{")){
+                            if(tabs != 0 ){
+                                for(let j = 0; j < tabs; j++){
+                                    res += "\t"
+                                }
+
+                                res += "INÍCIO"
+                            }
                             
 
                             tabs++
@@ -302,7 +344,7 @@
 
                     }
 
-                    res += "\nFIM_ALGORITMO."
+                    res += "\n\n\nFIM_ALGORITMO."
                     
 
 
