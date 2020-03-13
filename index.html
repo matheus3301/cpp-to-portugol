@@ -212,10 +212,11 @@
                             let str = arr[i]+";"
                             str = str.replace("printf(","")
                             str = str.replace(");","")
-                            str = str.replace("%d","")
-                            str = str.replace("%f","")
-                            str = str.replace("%s","")
-                            str = str.replace("%c","")
+                            str = str.replace("&","")
+
+                            
+                            let variables = str.split(",");
+
 
 
 
@@ -228,7 +229,19 @@
                             for(let j = 0; j < tabs; j++){
                                 res += "\t"
                             }
-                            res += "ESCREVA "+str;
+                            res += "LEIA "
+
+                            for(let j = 1; j < variables.length; j++){
+
+
+                                if(variables.length-1 == j){
+                                        res += variables[j] + "\n"
+
+                                }else{
+                                        res += variables[j] + ", "
+
+                                }
+                            }
 
                         }
 
