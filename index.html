@@ -127,7 +127,9 @@
 
                         if(arr[i].startsWith("int") 
                         && !arr[i].endsWith("){") 
-                        && !arr[i].endsWith(")")                       
+                        && !arr[i].endsWith(")")
+                        && !arr[i].endsWith(") {")
+
                         ){
 
                             for(let j = 0; j < tabs; j++){
@@ -141,6 +143,8 @@
                         if(arr[i].startsWith("float")
                         && !arr[i].endsWith("){") 
                         && !arr[i].endsWith(")")
+                        && !arr[i].endsWith(") {")
+
                                                   
                         ){
                             for(let j = 0; j < tabs; j++){
@@ -154,7 +158,9 @@
 
                         if(arr[i].startsWith("double")
                         && !arr[i].endsWith("){") 
-                        && !arr[i].endsWith(")")                        
+                        && !arr[i].endsWith(")")
+                        && !arr[i].endsWith(") {")                        
+
                        
                         ){
 
@@ -169,7 +175,9 @@
 
                         if(arr[i].startsWith("char")
                         && !arr[i].endsWith("){") 
-                        && !arr[i].endsWith(")")                        
+                        && !arr[i].endsWith(")")     
+                        && !arr[i].endsWith(") {")                        
+
                        
                         ){
                             for(let j = 0; j < tabs; j++){
@@ -182,10 +190,11 @@
                         }
 
                         //LOOKING FOR INPUTS AND OUTPUTS COMMANDS
-                        if(arr[i].includes("printf(")){
+                        if(arr[i].includes("printf")){
 
                             let str = arr[i]+";"
-                            str = str.replace("printf(","")
+                            str = str.replace("printf","")
+                            str = str.replace("(","")
                             str = str.replace(");","")
                             str = str.replace("%d","")
                             str = str.replace("%f","")
@@ -207,11 +216,14 @@
                             
                         }
 
-                        if(arr[i].includes("scanf(")){
+                        if(arr[i].includes("scanf") 
+                        ){
 
                             let str = arr[i]+";"
-                            str = str.replace("printf(","")
+                            str = str.replace("scanf","")
                             str = str.replace(");","")
+                            str = str.replace("(","")
+
                             str = str.replace(/&/g,"")
 
                             
@@ -285,8 +297,10 @@
 
                         if(arr[i].includes("if")){
                             let condition  = arr[i].replace(/ /g,"")
-                            condition  = condition.replace("){","")
-                            condition  = condition.replace("if(","")
+                            condition  = condition.replace(")","")
+                            condition  = condition.replace("{","")
+                            condition  = condition.replace("if","")
+                            condition  = condition.replace("(","")
                             condition  = condition.replace("=="," = ")
                             condition  = condition.replace("else","")
                             condition  = condition.replace("}","")
@@ -313,8 +327,10 @@
 
                         if(arr[i].includes("while")){
                             let condition  = arr[i].replace(/ /g,"")
-                            condition  = condition.replace("){","")
-                            condition  = condition.replace("while(","")
+                            condition  = condition.replace(")","")
+                            condition  = condition.replace("{","")
+                            condition  = condition.replace("(","")
+                            condition  = condition.replace("while","")
                             condition  = condition.replace("=="," = ")
                             condition  = condition.replace("}","")
 
