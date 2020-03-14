@@ -7,12 +7,14 @@ function convert(){
     let lang = $("#language").val()
 
     let tabs = 0;
+    let dowhile = 0;
 
     if(lang != "null"){
         let code = $("#input").val()
 
-        //REMOVING ALL SEMICOLONS OF THE ORIGINAL CODE
-        code = code.replace(/;/g,"")
+                
+        code = code.replace(/=/g," <- ")
+
 
         console.log(code)
 
@@ -21,14 +23,21 @@ function convert(){
 
 
         if(lang == "c"){
+
             console.log("Converting C to Portugol")
 
             let arr = code.split("\n")
 
-            console.log(arr.lenght)
+            console.log(arr.length)
 
             for(let i = 0; i < arr.length; i++){
+
+
                 arr[i] = $.trim(arr[i])
+
+                if(!arr[i].includes("for")){
+                    arr[i] = arr[i].replace(/;/,"")
+                }
 
 
                  //LOOKING FOR ENDINGS
@@ -207,16 +216,7 @@ function convert(){
 
                 }
 
-                //LOOKING FOR ATRIBUITIONS
-                if(arr[i].includes(" = ")){
-        
-                    let arrow = arr[i].replace("=","<-")
-                    
-                    for(let j = 0; j < tabs; j++){
-                        res += "\t"
-                    }
-                    res += arrow+"\n"
-                }
+                
 
                 //LOOKING FOR \n
                 if(arr[i] == "\n"){
@@ -235,7 +235,7 @@ function convert(){
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
-                    res += "SE NAO\n "
+                    res += "SENÃO\n "
 
 
                     
@@ -246,12 +246,56 @@ function convert(){
                 }
 
                 if(arr[i].includes("for")){
-                    res += "\n"
+                    
+                    res += "\n\n"
+
+                    let line = arr[i]
+                    line  = line.replace(")","")
+                    line  = line.replace("{","")
+                    line  = line.replace("for","")
+                    line  = line.replace("(","")
+                    line  = line.replace("}","")
+                    line  = line.replace("int","")
+                    line  = line.replace("double","")
+                    line  = line.replace("float","")
+                    line  = line.replace("char","")
+                    line  = line.replace("complex","")
+                    line  = line.replace(/long/g,"")
+
+                    let loop  = line.split(";");
+
+                    loop[1] = loop[1].replace("<"," ")
+                    loop[1] = loop[1].replace("!="," ")
+                    loop[1] = loop[1].replace("=="," ")
+                    loop[1] = loop[1].replace(">"," ")
+                    loop[1] = loop[1].replace("<="," ")
+                    loop[1] = loop[1].replace(">="," ")
+                    loop[1] = loop[1].replace(loop[0].split(" ")[0] == " " ? loop[0].split(" ")[0] : loop[0].split(" ")[1],"")
+
+
+
+
+
+
+
+                    
+                    
+                    
+
+                    console.log(loop)
+
+
+
+
+
+
+
 
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
-                    res += "SE NAO\n "
+                    
+                    res += "PARA "+loop[0]+" ATÉ "+loop[1]+" FAÇA\n"
 
 
                     
@@ -289,7 +333,28 @@ function convert(){
                     
                     
 
-                }           
+                }         
+                
+                if(arr[i].includes("do")){
+                    
+
+                    res += "\n"
+
+                    for(let j = 0; j < tabs; j++){
+                        res += "\t"
+                    }
+                    res += "REPITA \n"
+
+                    dowhile++;
+                    
+
+
+                    
+
+                    
+                    
+
+                }         
 
                 if(arr[i].includes("while")){
                     let condition  = arr[i].replace(/ /g,"")
@@ -297,18 +362,42 @@ function convert(){
                     condition  = condition.replace("{","")
                     condition  = condition.replace("(","")
                     condition  = condition.replace("while","")
-                    condition  = condition.replace("=="," = ")
                     condition  = condition.replace("}","")
-
-
-
 
                     res += "\n"
 
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
-                    res += "ENQUANTO "+condition+" FAÇA\n"
+
+                    if(dowhile == 0){
+                        condition  = condition.replace("=="," = ")
+                        
+
+
+
+                        res += "ENQUANTO "+condition+" FAÇA\n"
+
+
+                    }else{
+                        condition  = condition.replace("=="," != ")
+                        condition  = condition.replace("<="," > ")
+                        condition  = condition.replace("<"," >= ")
+                        condition  = condition.replace("<="," > ")
+                        condition  = condition.replace("!="," = ")
+                        condition  = condition.replace(">"," <= ")
+                        condition  = condition.replace(">="," < ")
+
+
+
+
+                        res += "ATÉ "+condition+"\n"
+
+
+                        dowhile--
+
+
+                    }                   
                     
 
                     console.log(condition)
