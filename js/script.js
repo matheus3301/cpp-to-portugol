@@ -95,7 +95,7 @@ function convert(){
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
-                    res += "DECLARE "+arr[i].substr(6)+" NUMERICO\n";
+                    res += "DECLARE "+arr[i].substr(8)+" NUMERICO\n";
 
                     
 
