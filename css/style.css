@@ -1,0 +1,14 @@
+body{
+    background-image: url("../img/bg.png"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; 
+}
+
+h1,h2,span,label{
+    color:#fff;
+}
+
+label{
+    font-weight: bold;
+}

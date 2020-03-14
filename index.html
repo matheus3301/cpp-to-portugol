@@ -6,21 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <a class="navbar-brand" href="index.html">CPP to Portugol</a>
+    <nav class="navbar navbar-expand-md navbar-dark ">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png"  alt="">
+          </a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">How to Use</a>
+                <li class="nav-item">
+                    <strong><a class="text-white nav-link" href="#">How to Use</a></strong>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <strong><a class="text-white nav-link" href="#">About</a></strong>
                 </li>
                
             </ul>
@@ -31,36 +35,53 @@
         <br>
         <br>
         <h2>C/C++ to Portugol</h2>
-
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Note:</strong> This is a beta release, there are many bugs. If you find one of them, contact us trought GitHub issues: <a href="https://github.com/matheus3301/cpp-to-portugol/issues/new">here</a>
+        </div>
+        
+        <script>
+          $(".alert").alert();
+        </script>
         <div class="row">
             <div class="col-md-6">
                 
+                
                 <div class="form-group">
                   <label for="language">Language:</label>
-                  <select  class="form-control" name="language" id="language">
-                    <option value="null">select...</option>
-                    <option value="cpp" disabled>C++(comming soon...)</option>
-                    <option value="c">C</option>
-                  </select>
+                  <div class="row">
+                      <div class="col-sm-9">
+                        <select style="background-color: rgba(0, 0, 0, 0.4); color:white;border: none;" class="form-control" name="language" id="language">
+                            <option value="null">select...</option>
+                            <option value="cpp" disabled>C++(comming soon...)</option>
+                            <option value="c">C</option>
+                          </select>
+                      </div>
+                      <div class="col-sm-3">
+                        <button class="btn btn-primary btn-outline" onclick="convert()">Convert</button>
+                    </div>
+                  </div>
+                  
                 </div>
 
                 <div class="form-group">
                   <label for="input">Code:</label>
-                  <textarea class="form-control" name="input" id="input" rows="14"></textarea>
+                  <textarea style="background-color: rgba(0, 0, 0, 0.4); color:white;border: none;" class="form-control" name="input" id="input" rows="14"></textarea>
                 </div>
-                <button style="float:right" class="btn btn-primary" onClick="convert()">
-                    Convert
-                </button>
+                
             </div>
             
             <div class="col-md-6">
                 <div class="form-group">
                   <label for="output">Result:</label>
-                  <textarea readonly class="form-control" name="output" id="output" rows="18"></textarea>
+                  <textarea style="background-color: rgba(0, 0, 0, 0.4); color:white;border: none;" readonly class="form-control" name="output" id="output" rows="18"></textarea>
                 </div>
             </div>
 
         </div>
+        <br><br><br>
     </div>
     
 
@@ -413,7 +434,18 @@
 
         }
         
-        
+        var textareas = document.getElementsByTagName('textarea');
+        var count = textareas.length;
+        for(var i=0;i<count;i++){
+            textareas[i].onkeydown = function(e){
+                if(e.keyCode==9 || e.which==9){
+                    e.preventDefault();
+                    var s = this.selectionStart;
+                    this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
+                    this.selectionEnd = s+1; 
+                }
+            }
+        }
     </script>
   </body>
 </html>
