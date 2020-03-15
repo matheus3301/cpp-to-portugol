@@ -13,7 +13,7 @@ function convert(){
         let code = $("#input").val()
 
                 
-        code = code.replace(/=/g," <- ")
+        // code = code.replace(/ = /g," <- ")
 
 
         console.log(code)
@@ -33,11 +33,15 @@ function convert(){
             for(let i = 0; i < arr.length; i++){
 
 
+
                 arr[i] = $.trim(arr[i])
 
                 if(!arr[i].includes("for")){
                     arr[i] = arr[i].replace(/;/,"")
                 }
+
+                //ATRIBUITIONS
+
 
 
                  //LOOKING FOR ENDINGS
@@ -50,7 +54,7 @@ function convert(){
                         for(let j = 0; j < tabs; j++){
                             res += "\t"
                         }
-
+                        
                         res += "FIM"
                     }
                     
@@ -363,6 +367,8 @@ function convert(){
                     condition  = condition.replace("(","")
                     condition  = condition.replace("while","")
                     condition  = condition.replace("}","")
+                    condition  = condition.replace("<-<-","==")
+
 
                     res += "\n"
 
@@ -423,7 +429,49 @@ function convert(){
                     tabs++
 
 
-                }            
+                }
+                
+                //LOOKING FOR ATRIBUITIONS
+                if((arr[i].includes("=") 
+                || arr[i].includes("+=")
+                || arr[i].includes("-=")
+                || arr[i].includes("*=")
+                || arr[i].includes("/=")) 
+                && !arr[i].includes("for")
+                && !arr[i].includes("int")
+                && !arr[i].includes("double")
+                && !arr[i].includes("char")
+                && !arr[i].includes("long")
+                && !arr[i].includes("float")
+                && !arr[i].includes("complex")
+                && !arr[i].includes("if")
+                && !arr[i].includes("while")
+
+
+
+
+
+
+
+                 
+                ){
+                    res += "\n"
+                    for(let j = 0; j < tabs; j++){
+                        res += "\t"
+                    }
+                    res += arr[i] +"\n";
+                }
+
+                //LOOKING FOR ATRIBUITIONS
+                if(arr[i].includes("break")             
+                ){
+                    res += "\n"
+                    for(let j = 0; j < tabs; j++){
+                        res += "\t"
+                    }
+                    res += "PARE" +"\n";
+                }
+                
 
 
             }
