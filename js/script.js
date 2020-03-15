@@ -36,7 +36,7 @@ function convert(){
 
                 arr[i] = $.trim(arr[i])
 
-                if(!arr[i].includes("for")){
+                if(!arr[i].includes("for(") && !arr[i].includes("for ")){
                     arr[i] = arr[i].replace(/;/,"")
                 }
 
@@ -233,7 +233,7 @@ function convert(){
 
                 //LOOKING FOR CONDITIONALS ON THE CODE
 
-                if(arr[i].includes("else")){
+                if(arr[i].includes("else{") || arr[i].includes("else ")){
                     res += "\n"
 
                     for(let j = 0; j < tabs; j++){
@@ -249,7 +249,7 @@ function convert(){
 
                 }
 
-                if(arr[i].includes("for")){
+                if(arr[i].includes("for(") || arr[i].includes("for ")){
                     
                     res += "\n\n"
 
@@ -309,7 +309,7 @@ function convert(){
 
                 }
 
-                if(arr[i].includes("if")){
+                if(arr[i].includes("if(") || arr[i].includes("if ")){
                     let condition  = arr[i].replace(/ /g,"")
                     condition  = condition.replace(")","")
                     condition  = condition.replace("{","")
@@ -339,7 +339,7 @@ function convert(){
 
                 }         
                 
-                if(arr[i].includes("do")){
+                if(arr[i].includes("do{") || arr[i].includes("do ")){
                     
 
                     res += "\n"
@@ -360,7 +360,7 @@ function convert(){
 
                 }         
 
-                if(arr[i].includes("while")){
+                if(arr[i].includes("while ") || arr[i].includes("while(")){
                     let condition  = arr[i].replace(/ /g,"")
                     condition  = condition.replace(")","")
                     condition  = condition.replace("{","")
