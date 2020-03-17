@@ -13,7 +13,9 @@ function convert(){
         let code = $("#input").val()
 
                 
-        // code = code.replace(/ = /g," <- ")
+        // code = code.replace(/||/g," OU ")
+        // code = code.replace(/&&/g," E ")
+
 
 
         console.log(code)
@@ -73,6 +75,8 @@ function convert(){
                 && !arr[i].endsWith(") {")
 
                 ){
+                    res += "\n"
+
 
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
@@ -89,6 +93,8 @@ function convert(){
 
                                           
                 ){
+                    res += "\n"
+                     
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
@@ -105,6 +111,8 @@ function convert(){
 
                                           
                 ){
+                    res += "\n"
+
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
@@ -121,6 +129,8 @@ function convert(){
 
                
                 ){
+                    res += "\n"
+                    
 
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
@@ -138,6 +148,8 @@ function convert(){
 
                
                 ){
+                    res += "\n"
+                    
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
@@ -233,7 +245,7 @@ function convert(){
 
                 //LOOKING FOR CONDITIONALS ON THE CODE
 
-                if(arr[i].includes("else{") || arr[i].includes("else ")){
+                if(arr[i].includes("else{") || arr[i].includes("else {")){
                     res += "\n"
 
                     for(let j = 0; j < tabs; j++){
@@ -249,7 +261,7 @@ function convert(){
 
                 }
 
-                if(arr[i].includes("for(") || arr[i].includes("for ")){
+                if(arr[i].includes("for(") || arr[i].includes("for (")){
                     
                     res += "\n\n"
 
@@ -318,6 +330,9 @@ function convert(){
                     condition  = condition.replace("=="," = ")
                     condition  = condition.replace("else","")
                     condition  = condition.replace("}","")
+                    condition  = condition.replace("||"," OU ")
+                    condition  = condition.replace("&&"," E ")
+
 
 
 
@@ -339,7 +354,7 @@ function convert(){
 
                 }         
                 
-                if(arr[i].includes("do{") || arr[i].includes("do ")){
+                if(arr[i].includes("do{") || arr[i].includes("do {")){
                     
 
                     res += "\n"
@@ -436,7 +451,11 @@ function convert(){
                 || arr[i].includes("+=")
                 || arr[i].includes("-=")
                 || arr[i].includes("*=")
-                || arr[i].includes("/=")) 
+                || arr[i].includes("/=")
+                || arr[i].includes("++")
+                || arr[i].includes("--"))
+
+
                 && !arr[i].includes("for")
                 && !arr[i].includes("int")
                 && !arr[i].includes("double")
@@ -459,7 +478,7 @@ function convert(){
                     for(let j = 0; j < tabs; j++){
                         res += "\t"
                     }
-                    res += arr[i] +"\n";
+                    res += arr[i].replace("=","<-") +"\n";
                 }
 
                 //LOOKING FOR ATRIBUITIONS
